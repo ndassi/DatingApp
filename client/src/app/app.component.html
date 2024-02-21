@@ -1,7 +1,7 @@
 <h1>{{title}}</h1>
 
 <ul>
-    @for( user of users; track user.id){
-        <li> {{user.id}} - {{user.name}} </li>
-    }
+  <li *ngFor="let user of users" >
+    {{user.id}} - {{user.name}}
+  </li>
 </ul>
