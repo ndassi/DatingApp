@@ -4,6 +4,16 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(builder=>{
+    builder.AddPolicy("CorsPolicy",option=>{
+        option.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowAnyOrigin();
+        
+    });
+});
+
 builder.Services.AddDbContext<DataContext>(option=>{
     option.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
@@ -24,7 +34,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+
 app.UseAuthorization();
+
 
 app.MapControllers();
 
